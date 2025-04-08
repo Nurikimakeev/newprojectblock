@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/just.css') }}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+    <title>{% block titile%}{% endblock %}</title>
+</head>
+<body>
+    {% block body %}
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#sec1">Заказать</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" 
+            data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" 
+            aria-expanded="false" aria-label="Переключить навигацию">
+            <span class="navbar-toggler-icon"></span>
+            </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav me-auto mb-2 mb-md-0">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="/about">О производстве</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#sec3">Размеры и цена</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" aria-disabled="true" href="/">домой</a>
+              </li>
+            </ul>
+            
+            <form class="d-flex" role="search">
+              <input class="form-control me-2" type="search" placeholder="Поиск" aria-label="Поиск">
+              <button class="btn btn-outline-success" type="submit">Поиск</button>
+            </form>
+          </div>
+        </div>
+    </nav>    
+    
+    <div class="container-fluid p-0">
+        <div class="d-flex align-items-center justify-content-center text-white position-relative"
+            style="background: url('https://textur.gas-kvas.com/uploads/posts/2024-10/textur-gas-kvas-com-avb4-p-teksturi-gazoblok-2.jpg') center/cover; 
+                   height: 100vh; width: 100vw; position: relative;">
+            
+            <!-- Затемняющий слой -->
+            <div class="position-absolute top-0 start-0 w-100 h-100" 
+                style="background: rgba(0, 0, 0, 0.5);"></div>
+            
+            <!-- Контент -->
+            <div class="position-relative text-center p-4" style="z-index: 1;">
+                <h3 class="display-2 fst-italic"
+                    style="color: white; font-family: 'Arial'; 
+                           text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.5);">
+                    Почему газоблоки эффективнее всех?
+                </h3>
+                <p class="lead mb-0"><a href="#sec2" class="text-light fw-bold">Продолжить чтение...</a></p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="container">
+       <hr class="featurette-divider">
+            <div class="row featurette">
+              <div class="col-md-7">
+                <h2 class="featurette-heading">D600: <span class="text-body-secondary">Оптимальный выбор для строительства</span></h2>
+                <p class="lead"class="lead"style="text-align: justify;">
+                </p>
+                
+              </div>
+              <div class="col-md-5">
+                <img src="https://bud-teh.com.ua/image/cache/catalog/obshestroy/gazobloki-stounligt-500x500.jpeg" class="featurette-image img-fluid mx-auto" width="500" height="500" alt="Описание изображения">
+            </div>
+            </div>
+        
+            <hr class="featurette-divider">
+        
+            <div class="row featurette">
+              <div class="col-md-7 order-md-2">
+                <h2 class="featurette-heading">D700: 
+                    <span class="text-body-secondary">Особенности и Применение</span></h2>
+                <p class="lead"class="lead"style="text-align: justify;">
+              </div>
+              <div class="col-md-5">
+                <img src="https://budstroy.kiev.ua/wp-content/uploads/2015/09/gazobetonnye_bloki.jpg" class="featurette-image img-fluid mx-auto" width="500" height="500" alt="Описание изображения">
+            </div>
+            </div>
+        
+            <hr class="featurette-divider">
+        
+            <div class="row featurette">
+              <div class="col-md-7">
+                <h2 class="featurette-heading" >D800:<span class="text-body-secondary">Максимальная теплоизоляция для тёплого дома</span></h2>
+                <p class="lead"style="text-align: justify;">
+
+              </div>
+              <div class="col-md-5">
+                <img src="https://bud-teh.com.ua/image/cache/catalog/obshestroy/gazoblok-500x500.gif" class="featurette-image img-fluid mx-auto" width="500" height="500" alt="Описание изображения">
+            </div>
+            <hr class="featurette-divider" id="sec3"> 
+            <div class="row row-cols-1 row-cols-md-3 mb-3 text-center">
+                <div class="col">
+                  <div class="card mb-4 rounded-3 shadow-sm border-secondary">
+                    <div class="card-header py-3 bg-light border-secondary">
+                      <h4 class="my-0 fw-normal text-secondary" >D600</h4>
+                    </div>
+                    <div class="card-body">
+                      <h1 class="card-title pricing-card-title text-secondary"> 100 / 300 / 600 <small class="text-body-secondary fw-light">110 сом</small></h1>
+                      <ul class="list-unstyled mt-3 mb-4 text-secondary">
+                        <li>Легкий</li>
+                        <li>Жаростойкий</li>
+                        <li>Доставка бесплатная</li>
+                        <li>Есть в наличии</li>
+                      </ul>
+                      <a href="/order" class="w-100 btn btn-lg btn-outline-secondary">Купить!</a>
+
+                    </div>
+                  </div>
+                </div>
+              
+                <div class="col">
+                  <div class="card mb-4 rounded-3 shadow-sm border-secondary">
+                    <div class="card-header py-3 bg-light border-secondary">
+                      <h4 class="my-0 fw-normal text-secondary">D700</h4>
+                    </div>
+                    <div class="card-body">
+                      <h1 class="card-title pricing-card-title text-secondary">200 / 300 / 600 <small class="text-body-secondary fw-light">220 Сом</small></h1>
+                      <ul class="list-unstyled mt-3 mb-4 text-secondary">
+                        <li>Прочный</li>
+                        <li>Влагостойкий</li>
+                        <li>Доставка бесплатная </li>
+                        <li>Есть в наличии!</li>
+                      </ul>
+                      <button type="button" class="w-100 btn btn-lg btn-secondary">Купить</button>
+                    </div>
+                  </div>
+                </div>
+              
+                <div class="col">
+                  <div class="card mb-4 rounded-3 shadow-sm border-secondary">
+                    <div class="card-header py-3 bg-light border-secondary">
+                      <h4 class="my-0 fw-normal text-secondary">D800</h4>
+                    </div>
+                    <div class="card-body">
+                      <h1 class="card-title pricing-card-title text-secondary">250 / 300 / 600 <small class="text-body-secondary fw-light">270 сом</small></h1>
+                      <ul class="list-unstyled mt-3 mb-4 text-secondary">
+                        <li>Самый прочный</li>
+                        <li>лучший вариант</li>
+                        <li>морозостойкий</li>
+                        <li>Только по заказу!</li>
+                      </ul>
+                      <button type="button" class="w-100 btn btn-lg btn-secondary">Заказать</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+        
+            <hr class="featurette-divider">
+        </div>
+    </div>    
+    <div class="container">
+      <h2 class="text-center mb-4" id="sec2">Почему газоблоки эффективнее?</h2>
+      <div class="row row-cols-1 row-cols-md-2 g-4">
+          <div class="col">
+              <div class="card h-100 border-0 shadow-sm">
+                  <div class="card-body">
+                      <h5 class="card-title">🔥 Отличная теплоизоляция</h5>
+                      <p class="card-text">Газоблоки удерживают тепло лучше кирпича, снижая затраты на отопление.</p>
+                  </div>
+              </div>
+          </div>
+          <div class="col">
+              <div class="card h-100 border-0 shadow-sm">
+                  <div class="card-body">
+                      <h5 class="card-title">💪 Легкость и прочность</h5>
+                      <p class="card-text">Оптимальное соотношение веса и прочности уменьшает нагрузку на фундамент.</p>
+                  </div>
+              </div>
+          </div>
+          <div class="col">
+              <div class="card h-100 border-0 shadow-sm">
+                  <div class="card-body">
+                      <h5 class="card-title">💰 Экономичность</h5>
+                      <p class="card-text">Меньше раствора, быстрая кладка и отсутствие утепления – это экономия!</p>
+                  </div>
+              </div>
+          </div>
+          <div class="col">
+              <div class="card h-100 border-0 shadow-sm">
+                  <div class="card-body">
+                      <h5 class="card-title">⚡ Простота строительства</h5>
+                      <p class="card-text">Блоки легко режутся и монтируются, сокращая время работ.</p>
+                  </div>
+              </div>
+          </div>
+          <div class="col">
+              <div class="card h-100 border-0 shadow-sm">
+                  <div class="card-body">
+                      <h5 class="card-title">🌱 Экологичность</h5>
+                      <p class="card-text">Газоблоки изготавливаются из природных материалов и не вредят здоровью.</p>
+                  </div>
+              </div>
+          </div>
+          <div class="col">
+              <div class="card h-100 border-0 shadow-sm">
+                  <div class="card-body">
+                      <h5 class="card-title">🔥 Огнестойкость</h5>
+                      <p class="card-text">Не горят и не выделяют вредных веществ при пожаре.</p>
+                  </div>
+              </div>
+          </div>
+      </div>
+    </div>
+    <hr class="featurette-divider">
+    <footer class="py-5 position-relative text-white" 
+    style="background: url('https://img.freepik.com/free-photo/clean-dark-gray-wall_1194-7214.jpg') center/cover no-repeat;">
+
+    <div class="container position-relative text-center" style="z-index: 1;">
+        <ul class="nav justify-content-center border-bottom border-light pb-3 mb-3">
+            <li class="nav-item"><a href="https://maps.app.goo.gl/ea5ZttjtAsyGBw7i7" class="nav-link px-2 text-white">Наш адрес</a></li>
+            <li class="nav-item"><a href="#" id="sec1" class="nav-link px-2 text-white">Тел:+996000000</a></li>
+            <li class="nav-item"><a href=»tel:+996000000" class="nav-link px-2 text-white">Тел:+996000000</a></li>
+            <li class="nav-item"><a href="#" class="nav-link px-2 text-white">Тел:+996000000</a></li>
+            <li class="nav-item"><a href="#" class="nav-link px-2 text-white"></a></li>
+        </ul>
+        <p class="text-white">© 2025 Газобетон в Бишкеке</p>
+    </div>
+</footer>
+
+    
+    {% endblock %}
+</html>

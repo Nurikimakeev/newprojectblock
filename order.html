@@ -1,0 +1,50 @@
+{% extends 'index.html' %}
+
+{% block title %}
+<p>Газоблоки</p> 
+{% endblock %}
+
+{% block body%}
+<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/" href="#sec1">Заказать</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" 
+        data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" 
+        aria-expanded="false" aria-label="Переключить навигацию">
+        <span class="navbar-toggler-icon"></span>
+        </button>
+    <div class="collapse navbar-collapse" id="navbarCollapse">
+        <ul class="navbar-nav me-auto mb-2 mb-md-0">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="/about">О производстве</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#sec3">Размеры и цена</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" aria-disabled="true" href="/">домой</a>
+          </li>
+        </ul>
+        
+        <form class="d-flex" role="search">
+          <input class="form-control me-2" type="search" placeholder="Поиск" aria-label="Поиск">
+          <button class="btn btn-outline-success" type="submit">Поиск</button>
+        </form>
+      </div>
+    </div>
+</nav>    
+<footer class="py-5 position-relative text-white" 
+style="background: url('https://img.freepik.com/free-photo/clean-dark-gray-wall_1194-7214.jpg') center/cover no-repeat;">
+
+<div class="container position-relative text-center" style="z-index: 1;">
+    <ul class="nav justify-content-center border-bottom border-light pb-3 mb-3">
+        <li class="nav-item"><a href="https://maps.app.goo.gl/ea5ZttjtAsyGBw7i7" class="nav-link px-2 text-white">Наш адрес</a></li>
+        <li class="nav-item"><a href="#" id="sec1" class="nav-link px-2 text-white">Тел:+996000000</a></li>
+        <li class="nav-item"><a href=»tel:+996000000" class="nav-link px-2 text-white">Тел:+996000000</a></li>
+        <li class="nav-item"><a href="#" class="nav-link px-2 text-white">Тел:+996000000</a></li>
+        <li class="nav-item"><a href="#" class="nav-link px-2 text-white"></a></li>
+    </ul>
+    <p class="text-white">© 2025 Газобетон в Бишкеке</p>
+</div>
+</footer>
+{% endblock %}
