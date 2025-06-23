@@ -27,7 +27,7 @@ def index():
 
 @app.route('/about')
 def about():
-    return render_template('about.html')
+    return render_template('base.html')
 
 @app.route('/company')
 def company():
@@ -35,7 +35,7 @@ def company():
 
 @app.route('/orderfound')
 def contact():
-    return redirect('orderfound.html')
+    return render_template('order.html')
 
 
 @app.route('/order', methods=['GET', 'POST'])
