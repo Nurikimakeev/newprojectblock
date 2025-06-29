@@ -1,31 +1,40 @@
-{% extends 'base.html' %}
+{% extends 'index.html' %}
+
+{% block title %}
+Админ панель - Заказы
+{% endblock %}
 
 {% block body %}
-<div class="container mt-5 pt-5">
-    <h2 class="mb-4">Список заказов</h2>
-    <table class="table table-bordered table-striped">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Имя</th>
-                <th>Телефон</th>
-                <th>Адрес</th>
-                <th>Количество</th>
-                <th>Дата</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for order in orders %}
-            <tr>
-                <td>{{ order.id }}</td>
-                <td>{{ order.name }}</td>
-                <td>{{ order.phone }}</td>
-                <td>{{ order.address }}</td>
-                <td>{{ order.quantity }}</td>
-                <td>{{ order.date.strftime('%Y-%m-%d %H:%M') }}</td>
-            </tr>
-            {% endfor %}
-        </tbody>
+<div class="container my-5">
+  <h2 class="mb-4">Список заказов</h2>
+  
+  {% if orders %}
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Имя</th>
+          <th>Телефон</th>
+          <th>Адрес</th>
+          <th>Количество</th>
+          <th>Дата заказа</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for order in orders %}
+        <tr>
+          <td>{{ order.id }}</td>
+          <td>{{ order.name }}</td>
+          <td>{{ order.phone }}</td>
+          <td>{{ order.address }}</td>
+          <td>{{ order.quantity }}</td>
+          <td>{{ order.date.strftime('%Y-%m-%d %H:%M') }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
     </table>
+  {% else %}
+    <p>Заказы отсутствуют.</p>
+  {% endif %}
 </div>
 {% endblock %}
