@@ -1,95 +1,476 @@
-{% extends 'index.html' %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8" />
+<title>Свадебное приглашение</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@400;700&display=swap');
 
-{% block title %}
-Газоблоки 
-{% endblock %}
+  body {
+    margin: 0;
+    font-family: 'Montserrat', sans-serif;
+    background-color: #f9f4e1;
+    color: #4a3f35;
+    overflow: hidden;
+    text-align: center;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+  }
 
-{% block body%}
-<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="/" href="#sec1">Заказать</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" 
-        data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" 
-        aria-expanded="false" aria-label="Переключить навигацию">
-        <span class="navbar-toggler-icon"></span>
-        </button>
-    <div class="collapse navbar-collapse" id="navbarCollapse">
-        <ul class="navbar-nav me-auto mb-2 mb-md-0">
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="/about">О производстве</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#sec3">Размеры и цена</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" aria-disabled="true" href="/">домой</a>
-          </li>
-        </ul>
-        
-        <form class="d-flex" role="search">
-          <input class="form-control me-2" type="search" placeholder="Поиск" aria-label="Поиск">
-          <button class="btn btn-outline-success" type="submit">Поиск</button>
-        </form>
-      </div>
-    </div>
-</nav>   
- <div class="container my-5">
-  <h2 class="text-center mb-4">О производстве</h2>
+  .page {
+    position: absolute;
+    width: 380px;
+    height: 500px;
+    padding: 20px;
+    box-sizing: border-box;
+    background: transparent;
+    transition: opacity 0.6s ease;
+    opacity: 0;
+    pointer-events: none;
+    user-select: none;
+  }
+  .page.active {
+    opacity: 1;
+    pointer-events: auto;
+  }
 
-  <!-- Первый блок -->
-  <div class="row align-items-center mb-5">
-    <div class="col-md-6">
-      <img src="https://chinaway.kz/wp-content/uploads/2021/10/Bez-imeni-2.jpg" class="img-fluid rounded shadow" alt="Производственная линия">
+  .envelope {
+    position: relative;
+    width: 350px;
+    height: 230px;
+    margin: 0 auto;
+    background: linear-gradient(135deg, #d4af37 0%, #b9972e 100%);
+    border-radius: 15px;
+    cursor: pointer;
+    overflow: visible;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+    border: 2px solid #bfa833;
+    perspective: 1200px;
+  }
+
+  .flap {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 350px;
+    height: 115px;
+    background: linear-gradient(135deg, #c9a031 0%, #b49727 100%);
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    box-shadow: inset 0 -5px 15px rgba(0, 0, 0, 0.1);
+    transform-origin: top center;
+    transition: transform 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 10;
+    border-bottom: 2px solid #a88421;
+  }
+
+  .envelope.open .flap {
+    transform: rotateX(-150deg);
+  }
+
+  .paper {
+    position: absolute;
+    top: 230px;
+    left: 10px;
+    width: 330px;
+    height: 350px;
+    background: #fdf3e7;
+    border-radius: 15px;
+    box-shadow:
+      0 10px 25px rgba(0,0,0,0.15),
+      inset 0 0 15px rgba(212, 175, 55, 0.1);
+    padding: 80px 40px 40px 40px;
+    box-sizing: border-box;
+    opacity: 0;
+    transform: translateY(0) rotateX(25deg);
+    transition: opacity 1s ease 1.1s, transform 1.2s cubic-bezier(0.4, 0, 0.2, 1) 1.1s;
+    font-family: 'Great Vibes', cursive;
+    color: #7a5a2a;
+    z-index: 9;
+    user-select: none;
+  }
+
+  .envelope.open .paper {
+    opacity: 1;
+    top: 60px;
+    transform: translateY(-50px) rotateX(0deg);
+  }
+
+  .paper h1 {
+    font-family: 'Great Vibes', cursive;
+    font-size: 4rem;
+    margin: 0;
+    color: #a9741f;
+    text-shadow: 1px 1px 4px rgba(255, 215, 0, 0.3);
+    user-select: text;
+  }
+
+  .shadow {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 280px;
+    height: 35px;
+    background: rgba(0,0,0,0.12);
+    border-radius: 50%;
+    filter: blur(8px);
+    transform: translateX(-50%);
+    transition: opacity 0.4s ease;
+  }
+  .envelope.open .shadow {
+    opacity: 0;
+  }
+
+  #page2 {
+    background: #fdf3e7;
+    border-radius: 20px;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+    padding: 30px 40px;
+    color: #4a3f35;
+    user-select: text;
+  }
+  #page2 h1 {
+    font-family: 'Great Vibes', cursive;
+    font-size: 3rem;
+    margin-bottom: 15px;
+    color: #a9741f;
+  }
+  #page2 p {
+    font-size: 1.15rem;
+    margin: 8px 0;
+    font-weight: 600;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 10px 12px;
+    margin-top: 20px;
+    user-select: none;
+  }
+
+  th, td {
+    text-align: center;
+    font-size: 1.1em;
+    padding: 12px 0;
+    border-radius: 50%;
+    font-weight: 600;
+    cursor: default;
+  }
+  th {
+    color: #a07a18;
+    font-weight: 700;
+  }
+
+  td {
+    background-color: #f7e9c4;
+    color: #6b552a;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+
+  td:empty {
+    background: transparent;
+  }
+
+  .highlight {
+    background-color: #d4af37;
+    color: white;
+    font-weight: 700;
+    box-shadow: 0 0 10px 2px rgba(212, 175, 55, 0.8);
+  }
+
+  .sparkle {
+    position: absolute;
+    border-radius: 50%;
+    animation: sparkle 2s ease-out forwards;
+    pointer-events: none;
+    z-index: 20;
+  }
+  @keyframes sparkle {
+    0% {
+      transform: scale(0);
+      opacity: 1;
+    }
+    100% {
+      transform: scale(1.5) translateY(200px);
+      opacity: 0;
+    }
+  }
+
+  .firework {
+    position: absolute;
+    border-radius: 50%;
+    pointer-events: none;
+    animation: firework-explode 1.2s ease forwards;
+    opacity: 1;
+    z-index: 20;
+  }
+  @keyframes firework-explode {
+    0% {
+      transform: scale(0);
+      opacity: 1;
+      box-shadow: 0 0 15px 8px gold, 0 0 25px 12px orange;
+    }
+    50% {
+      transform: scale(1.8);
+      opacity: 1;
+      box-shadow: 0 0 30px 12px gold, 0 0 50px 20px orange;
+    }
+    100% {
+      transform: scale(3);
+      opacity: 0;
+      box-shadow: 0 0 40px 18px gold, 0 0 60px 25px orange;
+    }
+  }
+</style>
+</head>
+<body>
+
+<div class="page active" id="page1" style="position: relative;">
+  <div class="envelope" onclick="openEnvelope()">
+    <div class="flap"></div>
+    <div class="paper">
+      <h1>Вы приглашены!</h1>
     </div>
-    <div class="col-md-6">
-      <h4 class="text-secondary">Современное оборудование</h4>
-      <p class="text-muted text-justify">
-        Наше производство оснащено современными автоматизированными линиями, что обеспечивает точность размеров и высокое качество каждого блока. Используемое оборудование позволяет минимизировать человеческий фактор и гарантировать стабильное качество.
-      </p>
-    </div>
+    <div class="shadow"></div>
+  </div>
+</div>
+
+<!-- Страница 2: Подробности + информация -->
+<div class="page" id="page2" style="overflow-y: auto; padding: 40px; background: #fdf3e7; color: #4a3f35; text-align: center; font-family: 'Montserrat', sans-serif; border-radius: 0; box-shadow: none; height: 100vh; width: 100vw; position: fixed; top: 0; left: 0;">
+
+  <h1 style="font-family: 'Great Vibes', cursive; font-size: 3rem; margin-bottom: 15px; color: #a9741f;">💍 Свадьба</h1>
+  
+  <p style="font-size: 1.2rem; line-height: 1.6; margin-bottom: 20px;">
+    Дорогие друзья и близкие! Мы рады пригласить вас на самый важный день в нашей жизни — нашу свадьбу.
+    Мы будем счастливы разделить этот волшебный момент с вами!
+  </p>
+  
+  <p><strong>Дата:</strong> 19 октября 2025</p>
+  <p><strong>Время:</strong> 17:00</p>
+  <p><strong>Место:</strong> Ресторан "Вдохновение"</p>
+  <p><strong>Телефон для связи:</strong> +48 123 456 789</p>
+
+  <div style="margin: 30px 0; font-weight: 600; font-size: 1.2rem; color: #a9741f;">
+    Листать вниз
+    <div style="font-size: 2rem; margin-top: 5px;">⬇️</div>
   </div>
 
-  <!-- Второй блок -->
-  <div class="row align-items-center mb-5">
-    <div class="col-md-6 order-md-2">
-      <img src="https://penobloki.pro/bitrix/images/blog/1310150.jpg" class="img-fluid rounded shadow" alt="Сырье и компоненты">
-    </div>
-    <div class="col-md-6 order-md-1">
-      <h4 class="text-secondary">Экологически чистое сырьё</h4>
-      <p class="text-muted text-justify">
-        Газобетон производится из природных компонентов: извести, цемента, песка и воды. Мы не используем химические добавки, что делает наш продукт безопасным для здоровья и окружающей среды.
-      </p>
-    </div>
+  <div style="font-family: 'Great Vibes', cursive; font-size: 3rem; margin-bottom: 20px; color: #a9741f;">
+    Эрлан → Умут
   </div>
 
-  <!-- Третий блок -->
-  <div class="row align-items-center mb-5">
-    <div class="col-md-6">
-      <img src="https://lh7-rt.googleusercontent.com/docsz/AD_4nXeH-SZjqoHSZjlkN3LSoiCKV_nSuSSj_DffK7ZnSXwB-HSWMuZ3uGEa0deQblT4oh3m90J0hgyB5ZggGtGffVbHaZOvnw9azAwCVnStbXA6ijvQhTmrSBcSuSSZa3F5jmoU1SD51Q?key=eixNzTZ9bL3hSwSB8L0QvAZY" class="img-fluid rounded shadow" alt="Контроль качества">
-    </div>
-    <div class="col-md-6">
-      <h4 class="text-secondary">Контроль на каждом этапе</h4>
-      <p class="text-muted text-justify">
-        Каждый этап — от замешивания раствора до автоклавной обработки — строго контролируется. Мы проверяем плотность, геометрию и прочность блоков, чтобы вы получили надежный и качественный строительный материал.
-      </p>
-    </div>
-  </div>
+  <p style="font-size: 1.1rem; line-height: 1.6;">
+    Мы хотим, чтобы этот день был наполнен любовью, радостью и незабываемыми моментами. 
+    Просим вас прибыть вовремя, чтобы вместе начать праздник с душевного тоста и веселья.
+  </p>
+
+  <p style="font-size: 1.1rem; line-height: 1.6;">
+    Мы подготовили для вас уютное место и множество сюрпризов.
+    Будем рады видеть каждого из вас на нашем торжестве!
+  </p>
+
+  <p style="font-size: 1.1rem; line-height: 1.6;">
+    Если возникнут вопросы или нужна дополнительная информация, не стесняйтесь обращаться по телефону, указанному выше.
+  </p>
+
+  <!-- Календарь -->
+  <div id="calendar" style="max-width: 400px; margin: 40px auto; font-family: 'Montserrat', sans-serif;"></div>
+
+  <p style="margin-top: 40px; font-style: italic; color: #a9741f;">
+    С любовью,<br>
+    Эрлан и Умут
+  </p>
 
 </div>
 
- <hr class="featurette-divider">
-<footer class="py-5 position-relative text-white" 
-style="background: url('https://img.freepik.com/free-photo/clean-dark-gray-wall_1194-7214.jpg') center/cover no-repeat;">
+<style>
+  /* Календарь */
+  #calendar {
+    border: 2px solid #d4af37;
+    border-radius: 15px;
+    background: #fff8dc;
+    box-shadow: 0 5px 15px rgba(212, 175, 55, 0.3);
+    padding: 20px;
+  }
 
-<div class="container position-relative text-center" style="z-index: 1;">
-    <ul class="nav justify-content-center border-bottom border-light pb-3 mb-3">
-        <li class="nav-item"><a href="https://maps.app.goo.gl/ea5ZttjtAsyGBw7i7" class="nav-link px-2 text-white">Наш адрес</a></li>
-        <li class="nav-item"><a href="#" id="sec1" class="nav-link px-2 text-white">Тел:+996000000</a></li>
-        <li class="nav-item"><a href=»tel:+996000000" class="nav-link px-2 text-white">Тел:+996000000</a></li>
-        <li class="nav-item"><a href="#" class="nav-link px-2 text-white">Тел:+996000000</a></li>
-        <li class="nav-item"><a href="#" class="nav-link px-2 text-white"></a></li>
-    </ul>
-    <p class="text-white">© 2025 Газобетон в Бишкеке</p>
-</div>
-</footer>
-{% endblock %}
+  #calendar h2 {
+    margin: 0 0 10px 0;
+    font-family: 'Great Vibes', cursive;
+    color: #a9741f;
+    font-size: 2.5rem;
+  }
+
+  #calendar table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: center;
+    user-select: none;
+  }
+
+  #calendar th, #calendar td {
+    width: 14.28%;
+    padding: 10px 0;
+    font-weight: 600;
+    font-size: 1.1rem;
+    border-radius: 8px;
+  }
+
+  #calendar th {
+    color: #a9741f;
+  }
+
+  #calendar td {
+    background: #f7e9c4;
+    color: #6b552a;
+    cursor: default;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+
+  #calendar td.empty {
+    background: transparent;
+    cursor: default;
+  }
+
+  #calendar td.highlight {
+    background-color: #d4af37;
+    color: white;
+    box-shadow: 0 0 10px 2px rgba(212, 175, 55, 0.8);
+    position: relative;
+  }
+
+  #calendar td.highlight::after {
+    content: '17:00';
+    position: absolute;
+    bottom: 4px;
+    right: 4px;
+    font-size: 0.7rem;
+    color: #fffacd;
+    font-weight: 700;
+    font-family: 'Montserrat', sans-serif;
+  }
+</style>
+
+<script>
+  // Функция для создания календаря на октябрь 2025
+  function createCalendar() {
+    const calendar = document.getElementById('calendar');
+
+    const monthName = 'Октябрь 2025';
+    const daysInMonth = 31;
+    const firstDayWeekday = new Date(2025, 9, 1).getDay(); // Октябрь = 9 (0-based), getDay(): 0 - вс, 1 - пн ...
+    // В js неделя начинается с воскресенья(0), нам удобнее с понедельника - поправим:
+    // Понедельник = 1, воскресенье = 0, сделаем воскресенье = 7 для удобства
+    let startDay = firstDayWeekday === 0 ? 7 : firstDayWeekday;
+
+    // Шапка календаря с месяцем
+    calendar.innerHTML = `<h2>${monthName}</h2>`;
+
+    // Заголовки дней недели
+    const daysOfWeek = ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс'];
+    let table = '<table><thead><tr>';
+    for (const day of daysOfWeek) {
+      table += `<th>${day}</th>`;
+    }
+    table += '</tr></thead><tbody><tr>';
+
+    // Добавим пустые ячейки до первого дня месяца
+    for (let i = 1; i < startDay; i++) {
+      table += `<td class="empty"></td>`;
+    }
+
+    // Добавим дни месяца
+    for (let day = 1; day <= daysInMonth; day++) {
+      // Если нужно начать новую строку в таблице
+      if ((day + startDay - 2) % 7 === 0 && day !== 1) {
+        table += '</tr><tr>';
+      }
+
+      if(day === 19) {
+        // Выделяем 19 октября
+        table += `<td class="highlight">${day}</td>`;
+      } else {
+        table += `<td>${day}</td>`;
+      }
+    }
+
+    // Добавим пустые ячейки в конце, если нужно
+    const totalCells = daysInMonth + startDay - 1;
+    const trailingEmpty = (7 - (totalCells % 7)) % 7;
+    for(let i = 0; i < trailingEmpty; i++) {
+      table += `<td class="empty"></td>`;
+    }
+
+    table += '</tr></tbody></table>';
+
+    calendar.innerHTML += table;
+  }
+
+  createCalendar();
+</script>
+
+
+
+
+<script>
+  function openEnvelope() {
+    const envelope = document.querySelector('.envelope');
+    if (envelope.classList.contains('open')) return;
+
+    envelope.classList.add('open');
+
+    // Блестки
+    for (let i = 0; i < 80; i++) {
+      let sparkle = document.createElement('div');
+      sparkle.className = 'sparkle';
+
+      const size = Math.random() * 4 + 4;
+      sparkle.style.width = sparkle.style.height = size + 'px';
+
+      const colors = ['gold', '#fff', '#ffd700', '#fffacd'];
+      sparkle.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+
+      sparkle.style.top = (Math.random() * 230 + 10) + 'px';
+      sparkle.style.left = (Math.random() * 350 + 10) + 'px';
+
+      sparkle.style.animationDelay = (Math.random() * 2) + 's';
+
+      envelope.appendChild(sparkle);
+
+      setTimeout(() => sparkle.remove(), 2500);
+    }
+
+    // Салюты
+    for (let i = 0; i < 6; i++) {
+      let firework = document.createElement('div');
+      firework.className = 'firework';
+
+      const size = Math.random() * 15 + 15;
+      firework.style.width = firework.style.height = size + 'px';
+
+      const fwColors = ['#ffd700', '#ffa500', '#ff4500', '#ffff00'];
+      firework.style.backgroundColor = fwColors[Math.floor(Math.random() * fwColors.length)];
+
+      firework.style.top = (Math.random() * 140 + 10) + 'px';
+      firework.style.left = (Math.random() * 350 + 10) + 'px';
+
+      firework.style.animationDelay = (Math.random() * 1.5) + 's';
+
+      envelope.appendChild(firework);
+
+      setTimeout(() => firework.remove(), 1300);
+    }
+
+    // Переключение страниц с задержкой
+    setTimeout(() => {
+      document.getElementById('page1').classList.remove('active');
+      document.getElementById('page2').classList.add('active');
+    }, 3200);
+  }
+</script>
+
+</body>
+</html>
